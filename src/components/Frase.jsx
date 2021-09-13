@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 const ContenedorFrase = styled.div`
     padding: 3rem;
+    border: solid black 3px;
     border-radius: .5rem;
     background-color: #fff;
     max-width: 800px;
@@ -51,11 +52,14 @@ const Frase = ({frase}) => {
     
 
     return ( 
+        <>
         <ContenedorFrase>
             <img src={frase.image} alt='Imágen de personaje'/>
             <h1>{frase.quote}</h1>
             <p>{frase.character}</p>
         </ContenedorFrase>
+        
+        </>
      );
 }
  
