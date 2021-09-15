@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 
 
 const ContenedorFrase = styled.div`
-    padding: 3rem;
+    padding: 2rem;
     border: solid black 3px;
     border-radius: .5rem;
     background-color: #fff;
     max-width: 800px;
 
     @media (min-width: 992px){
-        margin-top: 20rem;
+        margin-top: 10rem;
     }
 
     h1{

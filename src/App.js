@@ -1,7 +1,10 @@
 import React,{useState, useEffect} from 'react';
+import Logo from '../src/logo.svg'
+import { v4 as uuidv4 } from 'uuid';
 import styled from '@emotion/styled';
-import FraseList from './components/FraseList';
-import Buscador from './components/Buscador';
+import Frases from './components/Frases';
+import Navbar from './components/Nav';
+import Footer from './components/Footer';
 
 
 const Contenedor = styled.div`
@@ -34,63 +37,37 @@ const Boton = styled.button`
 function App() {
 
   const [frases, setFrases] = useState([]);
-  // let frases = [];
-  const [frasesFiltradas, setFrasesFiltradas] = useState([]);
-  const [filtroPersonaje, setFiltroPersonaje] = useState('');
-
-
-  const filterQuotes = () =>{
-    const result = filtroPersonaje === '' ? frases : frases.filter((frase)=>
-      frase.character.toLowerCase().includes(filtroPersonaje.toLowerCase())
-    )
-
-    setFrasesFiltradas(result);
-  
-    console.log(result);
-  }
-
-
-
   
   const requestAPI = async () => {
 
     const api = await fetch('https://thesimpsonsquoteapi.glitch.me/quotes?count=15');
 
-    const data = await api.json();
+    let data = await api.json();
+
+    data = data.map((item)=>{
+      return {
+        ...item,
+        id: uuidv4()
+      }
+    })
 
     setFrases(data);
-    // frases = [...data];
-    // filterQuotes();
-
-    setFrasesFiltradas(data);
     
   };
-
-  
 
   useEffect( ()=> {
     requestAPI();
   }, [])
 
-
-  const filterCharacter = (searchText) =>{
-
-    setFiltroPersonaje(searchText);
-    filterQuotes();
-
-  }
-
-
-
   return (
     <Contenedor>
 
-      <Buscador
-        onChange={filterCharacter}
-      />
+      {/* <img src={Logo} alt='logo'/> */}
 
-      <FraseList
-        frases={frasesFiltradas}
+      <Navbar/>
+
+      <Frases 
+        frases={frases}
       />
       
       <Boton
@@ -98,6 +75,8 @@ function App() {
       >
         ¡Quiero ver más frases de los Simpson!
       </Boton>
+
+      <Footer/>
     </Contenedor>
   );
 }

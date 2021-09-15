@@ -6,7 +6,7 @@ const FraseList = ({frases}) => {
         <div>
             {frases.map((frase) =>
                 <Frase
-                    key={frase.quote}
+                    key={frase.id}
                     frase={frase}
                 />
             )}
