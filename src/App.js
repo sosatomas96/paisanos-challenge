@@ -1,4 +1,6 @@
 import React,{useState, useEffect} from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Logo from '../src/logo.svg'
 import { v4 as uuidv4 } from 'uuid';
 import styled from '@emotion/styled';
@@ -15,7 +17,7 @@ const Contenedor = styled.div`
 `;
 
 const Boton = styled.button`
-  background: --webkit-gradient(top left, #007d35 0%, #007d35 40%, #0f574e #100);
+  background: #FFCC29;
   background-size: 300px;
   font-family: Arial, Helvetica, sans-serif;
   border-radius: .5rem;
@@ -25,11 +27,11 @@ const Boton = styled.button`
   padding: 1rem 3rem;
   font-size: 2rem;
   border: 2px solid black;
-  transition: background-size .8s ease;
 
   :hover{
     cursor: pointer;
     background-size: 400px;
+    background-color: #F58634;
   }
 
 `;
@@ -60,24 +62,32 @@ function App() {
   }, [])
 
   return (
-    <Contenedor>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/'>
+          <Link to='/inicio'>
+            <img src={Logo} alt='logo'/>
+          </Link>
+        </Route>
+        <Route path='/inicio'>
+          <Contenedor>
+            <Navbar/>
 
-      {/* <img src={Logo} alt='logo'/> */}
+            <Frases 
+              frases={frases}
+            />
+            
+            <Boton
+              onClick={() => requestAPI()}
+            >
+              ¡Quiero ver más frases de los Simpson!
+            </Boton>
 
-      <Navbar/>
-
-      <Frases 
-        frases={frases}
-      />
-      
-      <Boton
-        onClick={() => requestAPI()}
-      >
-        ¡Quiero ver más frases de los Simpson!
-      </Boton>
-
-      <Footer/>
-    </Contenedor>
+            <Footer/>
+          </Contenedor>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
